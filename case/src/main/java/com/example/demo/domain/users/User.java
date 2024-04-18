@@ -1,5 +1,6 @@
 package com.example.demo.domain.users;
 
+import com.example.demo.dto.UserDto;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -17,12 +18,12 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "Users")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(of="id")
+@Table(name = "Users")
 public class User {
 
     @Id
@@ -47,4 +48,13 @@ public class User {
 
     @Column(name = "creation_date", nullable = false)
     private LocalDateTime creationDate;
+
+    public User(UserDto userDto) {
+        this.name = userDto.name();
+        this.username = userDto.username();
+        this.email = userDto.email();
+        this.password = userDto.password();
+        this.role = userDto.role();
+        this.creationDate = userDto.creationDate();
+    }
 }

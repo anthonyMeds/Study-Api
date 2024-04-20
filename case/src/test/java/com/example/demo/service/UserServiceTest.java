@@ -16,7 +16,10 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 @AutoConfigureMockMvc
@@ -36,16 +39,16 @@ public class UserServiceTest {
                 "password", UserRole.STUDENT);
         User user = new User(userDto);
 
-        Mockito.when(userRepository.findByUsernameOrEmail(Mockito.anyString())).thenReturn(Optional.empty());
-        Mockito.when(userRepository.save(Mockito.any(User.class))).thenReturn(user);
+        when(userRepository.findByUsernameOrEmail(Mockito.anyString())).thenReturn(Optional.empty());
+        when(userRepository.save(Mockito.any(User.class))).thenReturn(user);
 
         User createdUser = userService.createUser(userDto);
 
-        Assertions.assertEquals(userDto.name(), createdUser.getName());
-        Assertions.assertEquals(userDto.username(), createdUser.getUsername());
-        Assertions.assertEquals(userDto.email(), createdUser.getEmail());
-        Assertions.assertEquals(userDto.role(), createdUser.getRole());
-        Assertions.assertNotNull(createdUser.getCreationDate());
+        assertEquals(userDto.name(), createdUser.getName());
+        assertEquals(userDto.username(), createdUser.getUsername());
+        assertEquals(userDto.email(), createdUser.getEmail());
+        assertEquals(userDto.role(), createdUser.getRole());
+        assertNotNull(createdUser.getCreationDate());
     }
 
     @Test
@@ -53,13 +56,13 @@ public class UserServiceTest {
     void testCheckIfUserExists_UsernameExists() {
 
         String existingUsername = "existingUsername";
-        Mockito.when(userRepository.findByUsernameOrEmail(existingUsername))
+        when(userRepository.findByUsernameOrEmail(existingUsername))
                 .thenReturn(Optional.of(new User()));
 
         RuntimeException serviceException = assertThrows(RuntimeException.class, () ->
                 userService.checkIfUserExists(existingUsername, "Username"));
 
-        Assertions.assertEquals(serviceException.getMessage(), "Username already exists.");
+        assertEquals(serviceException.getMessage(), "Username already exists.");
    }
 
     @Test
@@ -67,25 +70,53 @@ public class UserServiceTest {
     void testCheckIfUserExists_EmailExists() {
 
         String existingEmail = "existingEmail@example.com";
-        Mockito.when(userRepository.findByUsernameOrEmail(existingEmail))
+        when(userRepository.findByUsernameOrEmail(existingEmail))
                 .thenReturn(Optional.of(new User()));
 
         RuntimeException serviceException = assertThrows(RuntimeException.class, () ->
                 userService.checkIfUserExists(existingEmail, "Email"));
 
-        Assertions.assertEquals(serviceException.getMessage(), "Email already exists."); }
+        assertEquals(serviceException.getMessage(), "Email already exists."); }
 
     @Test
     @DisplayName("Test checkIfUserExists method - User does not exist")
     void testCheckIfUserExists_UserDoesNotExist() {
 
         String nonExistingValue = "nonExistingValue";
-        Mockito.when(userRepository.findByUsernameOrEmail(nonExistingValue)).thenReturn(Optional.empty());
+        when(userRepository.findByUsernameOrEmail(nonExistingValue)).thenReturn(Optional.empty());
 
 
         userService.checkIfUserExists(nonExistingValue, "FieldName");
 
         // No exception should be thrown
+    }
+
+    @Test
+    public void testGetUserByUsername_WhenUserExists_ThenReturnUser() throws Exception {
+
+        UserDto userDto = new UserDto("Joao", "joaozin", "joao@hotmail.com", "123", UserRole.STUDENT);
+
+        String username = "testUser";
+        User user = new User(userDto);
+        when(userRepository.findUserByUsername(username)).thenReturn(Optional.of(user));
+
+        User result = userService.getUserByUsername(username);
+
+        assertNotNull(result);
+        assertEquals(user, result);
+        assertEquals(user.getUsername(), result.getUsername());
+    }
+
+    @Test
+    public void testGetUserByUsername_WhenUserDoesNotExist_ThenThrowException() {
+
+        String username = "nonExistentUser";
+        when(userRepository.findUserByUsername(username)).thenReturn(Optional.empty());
+
+        Exception serviceException = assertThrows(Exception.class, () ->
+                userService.getUserByUsername(username), "Username");
+
+        assertEquals(serviceException.getMessage(), "User not found.");
     }
 
 

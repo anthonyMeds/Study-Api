@@ -31,6 +31,10 @@ public class UserService {
         return this.userRepository.findUserById(id).orElseThrow(() -> new Exception("User not found."));
     }
 
+    public User getUserByUsername(String username) throws Exception {
+        return userRepository.findUserByUsername(username).orElseThrow(() -> new Exception("User not found."));
+    }
+
     public List<User> getAllUsers() throws Exception {
          List<User> userList =  userRepository.findAll();
 

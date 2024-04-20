@@ -4,7 +4,6 @@ import com.example.demo.domain.users.User;
 import com.example.demo.dto.UserDto;
 import com.example.demo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

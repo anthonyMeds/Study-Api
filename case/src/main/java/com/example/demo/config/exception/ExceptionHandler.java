@@ -3,7 +3,10 @@ package com.example.demo.config.exception;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import java.util.Objects;
 
 @RestControllerAdvice
 public class ExceptionHandler {
@@ -30,6 +33,18 @@ public class ExceptionHandler {
     public ResponseEntity generalException (Exception exception) {
 
         ExceptionDto exceptionDto = new ExceptionDto(exception.getMessage(), "500");
+
+        return ResponseEntity.internalServerError().body(exceptionDto);
+
+    }
+
+    @org.springframework.web.bind.annotation.ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity invalidArgument (MethodArgumentNotValidException exception) {
+
+        String specificField = Objects.requireNonNull(exception.getBindingResult().getFieldError()).getField()
+                + ": " + exception.getBindingResult().getFieldError().getDefaultMessage();
+
+        ExceptionDto exceptionDto = new ExceptionDto(specificField, "400");
 
         return ResponseEntity.internalServerError().body(exceptionDto);
 

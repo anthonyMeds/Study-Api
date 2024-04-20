@@ -75,7 +75,8 @@ public class UserServiceTest {
         RuntimeException serviceException = assertThrows(RuntimeException.class, () ->
                 userService.checkIfUserExists(existingEmail, "Email"));
 
-        assertEquals(serviceException.getMessage(), "Email already exists."); }
+        assertEquals(serviceException.getMessage(), "Email already exists.");
+    }
 
     @Test
     @DisplayName("Test checkIfUserExists method - User does not exist")

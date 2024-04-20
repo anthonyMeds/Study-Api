@@ -1,4 +1,4 @@
-CREATE TABLE  IF NOT EXISTS Users (
+CREATE TABLE  IF NOT EXISTS user (
                        id INT AUTO_INCREMENT PRIMARY KEY,
                        name VARCHAR(255),
                        username VARCHAR(20) UNIQUE,
@@ -8,7 +8,7 @@ CREATE TABLE  IF NOT EXISTS Users (
                        creation_date DATETIME
 );
 
-CREATE TABLE IF NOT EXISTS Course (
+CREATE TABLE IF NOT EXISTS couse (
                         id INT AUTO_INCREMENT PRIMARY KEY,
                         name VARCHAR(255),
                         code VARCHAR(10) UNIQUE,
@@ -19,11 +19,11 @@ CREATE TABLE IF NOT EXISTS Course (
                         inactivation_date DATETIME
 );
 
-CREATE TABLE  IF NOT EXISTS Enrollment (
+CREATE TABLE  IF NOT EXISTS enrollment (
                             id INT AUTO_INCREMENT PRIMARY KEY,
                             user_id INT,
                             course_id INT,
                             enrollment_date DATETIME,
-                            FOREIGN KEY (user_id) REFERENCES Users(id),
-                            FOREIGN KEY (course_id) REFERENCES Course(id)
+                            FOREIGN KEY (user_id) REFERENCES user(id),
+                            FOREIGN KEY (course_id) REFERENCES couse(id)
 );

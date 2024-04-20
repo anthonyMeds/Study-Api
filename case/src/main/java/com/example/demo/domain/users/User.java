@@ -17,13 +17,13 @@ import lombok.Setter;
 
 import java.time.LocalDateTime;
 
-@Entity
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(of="id")
-@Table(name = "Users")
+@Entity(name = "user")
+@Table(name = "user")
 public class User {
 
     @Id

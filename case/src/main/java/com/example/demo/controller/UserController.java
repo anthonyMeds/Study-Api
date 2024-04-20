@@ -4,7 +4,7 @@ import com.example.demo.domain.users.User;
 import com.example.demo.dto.UserDto;
 import com.example.demo.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -37,6 +37,7 @@ public class UserController {
     @PostMapping("/create")
     public ResponseEntity<User> createUser
             (
+                    @Valid
                     @RequestBody
                     UserDto userDto
             ) {

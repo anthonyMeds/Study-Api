@@ -41,7 +41,7 @@ public class UserService {
          return userList;
     }
 
-    private void checkIfUserExists(String value, String fieldName) {
+    public void checkIfUserExists(String value, String fieldName) {
         Optional<User> existingUser = userRepository.findByUsernameOrEmail(value);
         existingUser.ifPresent(user -> {
             throw new RuntimeException(fieldName + " already exists.");

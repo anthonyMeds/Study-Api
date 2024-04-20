@@ -7,8 +7,6 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
-import java.time.LocalDateTime;
-
 public record UserDto
         (
                 @Schema(description = "Name of the user", example = "John Doe", required = true)
@@ -33,9 +31,6 @@ public record UserDto
 
                 @Schema(description = "Role of the user", example = "STUDENT", required = true)
                 @NotNull(message = "Role is required")
-                UserRole role,
-
-                @Schema(description = "Creation date of the user", example = "2024-04-20T10:30:00", required = true)
-                LocalDateTime creationDate
+                UserRole role
         ) {
 }

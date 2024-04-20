@@ -48,6 +48,8 @@ public class UserController {
         
     }
 
+    @Operation(summary = "Get all users",
+            description = "Internal api to check all users.")
     @GetMapping("/getAll")
     public ResponseEntity<List<User>> getAllUser() throws Exception {
         List<User> userList = userService.getAllUsers();

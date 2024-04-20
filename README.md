@@ -1,6 +1,6 @@
 ## Study API - 
 
-Welcome to the Study API! This project is part of the Alura technical challenge and aims to provide a platform for managing users, courses, and enrollments.
+Welcome to the Study API! This project aims to provide a platform for managing users, courses, and enrollments.
 
 ### Technologies Used
 

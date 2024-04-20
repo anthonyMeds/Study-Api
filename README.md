@@ -37,11 +37,12 @@ Study API provides the following endpoints:
 - **Course Management**: Create, update.
 - **Enrollment Management**: Enroll users in courses, view enrollments.
 
-- 
+  - check in swagger : http://localhost:8080/swagger-ui/index.html#/user-controller/createUser
+
 
 ## Exception Handlers and Request Data Validation
 
-In the Study API project, specific exception handlers have been implemented to handle various types of exceptions that may occur during the execution of the application. These exception handlers ensure proper error handling and provide meaningful responses to the clients. Additionally, validations are applied to all endpoints to ensure data integrity and consistency in the system.
+In the Study API project, specific exception handlers have been implemented to handle various types of exceptions that may occur during the execution of the application. 
 
 ### Exception Handlers
 
@@ -51,6 +52,8 @@ In the Study API project, specific exception handlers have been implemented to h
 
 3. **Other Custom Exception Handlers**: Additional custom exception handlers may be implemented to handle specific business logic errors or unexpected scenarios, ensuring robust error handling throughout the application.
 
+   
+
 ### Validations in Endpoints
 
 1. **User Management Endpoints**: Validations are applied to user creation and update endpoints to ensure that required fields are provided and data is in the correct format. For example, username and email uniqueness is enforced, and roles are validated against predefined values.
@@ -58,12 +61,6 @@ In the Study API project, specific exception handlers have been implemented to h
 2. **Course Management Endpoints**: Similar validations are applied to course-related endpoints, such as ensuring unique course codes, validating instructor permissions for course creation, and enforcing constraints on course descriptions.
 
 3. **Enrollment Management Endpoints**: Validations ensure that users can only enroll in active courses and prevent duplicate enrollments for the same user in a course.
-
-### Integration with Request Data
-
-All validations are integrated into the request processing pipeline, ensuring that incoming data is validated before being processed further. If validation fails, appropriate error responses are returned to the client, indicating the validation errors and guiding the user on how to correct them.
-
-By implementing these specific exception handlers and validations in all endpoints, the Study API ensures robust error handling and data integrity, providing a reliable and user-friendly experience for its consumers.
 
 
 

@@ -1,2 +1,6 @@
-package com.example.demo.domain.courses;public enum CourseStatus {
+package com.example.demo.domain.courses;
+
+public enum CourseStatus {
+    ACTIVE,
+    INACTIVE
 }

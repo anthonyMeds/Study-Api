@@ -55,6 +55,6 @@ public class User {
         this.email = userDto.email();
         this.password = userDto.password();
         this.role = userDto.role();
-        this.creationDate = userDto.creationDate();
+        this.creationDate = LocalDateTime.now();
     }
 }

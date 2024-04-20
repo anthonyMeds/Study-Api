@@ -3,6 +3,8 @@ package com.example.demo.controller;
 import com.example.demo.domain.users.User;
 import com.example.demo.dto.UserDto;
 import com.example.demo.service.UserService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +23,17 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @Operation(summary = "Create a user",
+            description = """
+                    
+                    To create an user it is requested to inform a valid : 
+                    - Name
+                    - Username
+                    - Email
+                    - Password
+                    - Role
+                    
+                    """)
     @PostMapping("/create")
     public ResponseEntity<User> createUser
             (

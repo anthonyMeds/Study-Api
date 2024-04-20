@@ -1,8 +1,8 @@
 package com.example.demo.controller;
 
 import com.example.demo.domain.users.User;
-import com.example.demo.dto.UserDto;
-import com.example.demo.dto.UserResponseDto;
+import com.example.demo.dto.user.UserDto;
+import com.example.demo.dto.user.UserResponseDto;
 import com.example.demo.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -26,7 +26,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @Operation(summary = "Create a user",
+    @Operation(summary = "Create an user",
             description = """
                     
                     To create an user it is requested to inform a valid : 

@@ -1,7 +1,10 @@
 package com.example.demo.service;
 
+import com.example.demo.domain.courses.Course;
+import com.example.demo.domain.courses.CourseStatus;
 import com.example.demo.domain.users.User;
 import com.example.demo.domain.users.UserRole;
+import com.example.demo.dto.course.CourseDto;
 import com.example.demo.repository.CourseRepository;
 import com.example.demo.repository.UserRepository;
 import org.junit.jupiter.api.DisplayName;
@@ -15,6 +18,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
@@ -77,7 +81,7 @@ public class CourseServiceTest {
         instructor.setRole(UserRole.STUDENT);
         when(userRepository.findUserByUsername(instructorUsername)).thenReturn(Optional.of(instructor));
 
-        RuntimeException exception = assertThrows(RuntimeException.class, () -> courseService.validateInstructor(instructorUsername));
+        Exception exception = assertThrows(Exception.class, () -> courseService.validateInstructor(instructorUsername));
 
         String expectedMessage = "Only instructors can create courses.";
         String actualMessage = exception.getMessage();
@@ -95,6 +99,30 @@ public class CourseServiceTest {
         String expectedMessage = "Instructor not found.";
         String actualMessage = exception.getMessage();
         assertEquals(actualMessage, expectedMessage);
+    }
+
+
+    @Test
+    @DisplayName("Test createCourse method - Course and instructor validation pass")
+    void testCreateCourse_CourseAndInstructorValidationPass() throws Exception {
+        User user = new User();
+        user.setRole(UserRole.INSTRUCTOR);
+
+        CourseDto courseDto = new CourseDto("Java Programming", "java-programming", "John Doe",
+                "Learn Java programming", CourseStatus.ACTIVE);
+
+        when(courseRepository.existsByCode(courseDto.code())).thenReturn(false);
+        when(userRepository.findUserByUsername(courseDto.instructor()))
+                .thenReturn(Optional.of(user));
+
+        Course createdCourse = courseService.createCourse(courseDto);
+
+        assertNotNull(createdCourse);
+        assertEquals(courseDto.name(), createdCourse.getName());
+        assertEquals(courseDto.code(), createdCourse.getCode());
+        assertEquals(courseDto.instructor(), createdCourse.getInstructor());
+        assertEquals(courseDto.description(), createdCourse.getDescription());
+        assertEquals(courseDto.status(), createdCourse.getStatus());
     }
 
 }

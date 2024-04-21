@@ -103,4 +103,9 @@ public class CourseService {
         return courseList;
     }
 
+    public Course getActiveCourseById(Long courseId) throws Exception {
+        return courseRepository.findByIdAndStatus(courseId, CourseStatus.ACTIVE)
+                .orElseThrow(() -> new Exception("Active course not found with ID: " + courseId));
+    }
+
 }

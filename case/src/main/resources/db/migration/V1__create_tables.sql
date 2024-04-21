@@ -8,7 +8,7 @@ CREATE TABLE  IF NOT EXISTS user (
                        creation_date DATETIME
 );
 
-CREATE TABLE IF NOT EXISTS couse (
+CREATE TABLE IF NOT EXISTS course (
                         id INT AUTO_INCREMENT PRIMARY KEY,
                         name VARCHAR(255),
                         code VARCHAR(10) UNIQUE,
@@ -25,5 +25,5 @@ CREATE TABLE  IF NOT EXISTS enrollment (
                             course_id INT,
                             enrollment_date DATETIME,
                             FOREIGN KEY (user_id) REFERENCES user(id),
-                            FOREIGN KEY (course_id) REFERENCES couse(id)
+                            FOREIGN KEY (course_id) REFERENCES course(id)
 );

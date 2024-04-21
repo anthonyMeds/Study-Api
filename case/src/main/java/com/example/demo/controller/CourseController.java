@@ -4,6 +4,7 @@ import com.example.demo.domain.courses.Course;
 import com.example.demo.domain.courses.CourseStatus;
 import com.example.demo.domain.users.User;
 import com.example.demo.dto.course.CourseDto;
+import com.example.demo.dto.course.ResponseCourseDto;
 import com.example.demo.dto.user.UserResponseDto;
 import com.example.demo.service.CourseService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -55,10 +56,10 @@ public class CourseController {
 
     }
 
-    @Operation(summary = "Get an course data",
+    @Operation(summary = "Get a course data",
             description = "Get informations about courses, based in status.")
     @GetMapping("/getCourse")
-    public ResponseEntity<Page<Course>> getUserData
+    public ResponseEntity<Page<ResponseCourseDto>> getUserData
             (
                     @Parameter(required = false, description = "status", example = "ACTIVE")
                     @RequestParam CourseStatus status,
@@ -66,9 +67,9 @@ public class CourseController {
                     @RequestParam(name = "page", defaultValue = "0") int page,
                     @RequestParam(name = "size", defaultValue = "10") int size
 
-            ) throws Exception {
+            ) {
 
-        Page<Course> coursePage = courseService.getCourseByStatus(status, page, size);
+        Page<ResponseCourseDto> coursePage = courseService.getCourseByStatus(status, page, size);
 
         return new ResponseEntity<>(coursePage, HttpStatus.OK);
     }

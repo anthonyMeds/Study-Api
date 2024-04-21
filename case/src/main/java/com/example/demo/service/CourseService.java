@@ -5,6 +5,7 @@ import com.example.demo.domain.courses.CourseStatus;
 import com.example.demo.domain.users.User;
 import com.example.demo.domain.users.UserRole;
 import com.example.demo.dto.course.CourseDto;
+import com.example.demo.dto.course.ResponseCourseDto;
 import com.example.demo.repository.CourseRepository;
 import com.example.demo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,8 +54,22 @@ public class CourseService {
 
     }
 
-    public Page<Course> getCourseByStatus(CourseStatus status, int page, int size) {
+    public Page<ResponseCourseDto> getCourseByStatus(CourseStatus status, int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
-        return courseRepository.findByStatus(status, pageable);
+
+        Page<Course> coursePage =  courseRepository.findByStatus(status, pageable);
+
+        return coursePage.map(this::convertToDTO);
+    }
+
+    private ResponseCourseDto convertToDTO(Course course) {
+        ResponseCourseDto dto = new ResponseCourseDto
+                (
+                        course.getName(), course.getCode(), course.getInstructor(),
+                        course.getDescription(), course.getStatus(), course.getCreationDate(),
+                        course.getInactivationDate()
+                );
+
+        return dto;
     }
 }

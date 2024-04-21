@@ -1,6 +1,6 @@
-package com.example.demo.domain.users;
+package com.example.demo.domain.courses;
 
-import com.example.demo.dto.user.UserDto;
+import com.example.demo.dto.course.CourseDto;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -23,8 +23,8 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @EqualsAndHashCode(of="id")
 @Entity
-@Table(name = "user")
-public class User {
+@Table(name = "course")
+public class Course {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,28 +33,32 @@ public class User {
     @Column(name = "name", nullable = false, length = 255)
     private String name;
 
-    @Column(name = "username", unique = true, nullable = false, length = 20)
-    private String username;
+    @Column(name = "code", nullable = false, unique = true, length = 10)
+    private String code;
 
-    @Column(name = "email", unique = true, nullable = false, length = 255)
-    private String email;
+    @Column(name = "instructor", nullable = false,  length = 255)
+    private String instructor;
 
-    @Column(name = "password", nullable = false, length = 255)
-    private String password;
+    @Column(name = "description", columnDefinition = "TEXT")
+    private String description;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "role", nullable = false)
-    private UserRole role;
+    @Column(name = "status", nullable = false)
+    private CourseStatus status;
 
     @Column(name = "creation_date", nullable = false)
     private LocalDateTime creationDate;
 
-    public User(UserDto userDto) {
-        this.name = userDto.name();
-        this.username = userDto.username();
-        this.email = userDto.email();
-        this.password = userDto.password();
-        this.role = userDto.role();
+    @Column(name = "inactivation_date")
+    private LocalDateTime inactivationDate;
+
+    public Course(CourseDto courseDto) {
+        this.name = courseDto.name();
+        this.code = courseDto.code();
+        this.instructor = courseDto.instructor();
+        this.description = courseDto.description();
+        this.status = courseDto.status();
         this.creationDate = LocalDateTime.now();
+        this.inactivationDate = null;
     }
 }

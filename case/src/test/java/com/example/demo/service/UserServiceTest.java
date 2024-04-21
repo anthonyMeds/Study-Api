@@ -2,9 +2,8 @@ package com.example.demo.service;
 
 import com.example.demo.domain.users.User;
 import com.example.demo.domain.users.UserRole;
-import com.example.demo.dto.UserDto;
+import com.example.demo.dto.user.UserDto;
 import com.example.demo.repository.UserRepository;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -76,7 +75,8 @@ public class UserServiceTest {
         RuntimeException serviceException = assertThrows(RuntimeException.class, () ->
                 userService.checkIfUserExists(existingEmail, "Email"));
 
-        assertEquals(serviceException.getMessage(), "Email already exists."); }
+        assertEquals(serviceException.getMessage(), "Email already exists.");
+    }
 
     @Test
     @DisplayName("Test checkIfUserExists method - User does not exist")

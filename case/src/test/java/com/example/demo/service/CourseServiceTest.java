@@ -19,6 +19,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,6 +28,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -169,5 +171,54 @@ public class CourseServiceTest {
         verify(courseRepository, times(1))
                 .findByStatus(CourseStatus.ACTIVE, PageRequest.of(0, 10));
     }
+
+    @Test
+    @DisplayName("Update Course Status - Course Not Found")
+    void testUpdateCourseStatus_CourseNotFound() {
+        String courseCode = "nonExistentCode";
+        CourseStatus newStatus = CourseStatus.INACTIVE;
+        when(courseRepository.findByCode(courseCode)).thenReturn(Optional.empty());
+
+        Exception exception = assertThrows(Exception.class, () ->
+                courseService.updateCourseStatus(courseCode, newStatus));
+
+        assertEquals("Course not found with code: " + courseCode, exception.getMessage());
+        verify(courseRepository, never()).save(any());
+    }
+
+    @Test
+    @DisplayName("Update Course Status - Success")
+    void testUpdateCourseStatus() throws Exception {
+        String courseCode = "code1";
+        CourseStatus newStatus = CourseStatus.INACTIVE;
+        Course course = new Course();
+        course.setCode(courseCode);
+        when(courseRepository.findByCode(courseCode)).thenReturn(java.util.Optional.of(course));
+
+        ResponseCourseDto updatedDto = courseService.updateCourseStatus(courseCode, newStatus);
+
+        assertEquals(newStatus, course.getStatus());
+        assertEquals(course.getCode(), updatedDto.code());
+        verify(courseRepository, times(1)).save(course);
+    }
+
+    @Test
+    @DisplayName("Update Course Status - Inactivation Date Update")
+    void testUpdateCourseStatus_InactivationDateUpdate() throws Exception {
+        String courseCode = "code1";
+        CourseStatus newStatus = CourseStatus.INACTIVE;
+        Course course = new Course();
+        course.setCode(courseCode);
+        course.setInactivationDate(LocalDateTime.now().minusDays(1));
+        when(courseRepository.findByCode(courseCode)).thenReturn(java.util.Optional.of(course));
+
+        ResponseCourseDto updatedDto = courseService.updateCourseStatus(courseCode, newStatus);
+
+        assertEquals(newStatus, course.getStatus());
+        assertEquals(course.getStatus(), updatedDto.status());
+        verify(courseRepository, times(1)).save(course);
+    }
+
+
 
 }

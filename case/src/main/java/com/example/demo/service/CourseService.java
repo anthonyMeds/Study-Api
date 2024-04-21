@@ -14,6 +14,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
@@ -71,5 +72,22 @@ public class CourseService {
                 );
 
         return dto;
+    }
+
+    public ResponseCourseDto updateCourseStatus(String courseCode, CourseStatus courseStatus) throws Exception {
+
+        Course course = courseRepository.findByCode(courseCode)
+                .orElseThrow(() -> new Exception("Course not found with code: " + courseCode));
+
+        course.setStatus(courseStatus);
+
+        if (courseStatus.equals(CourseStatus.INACTIVE) && course.getInactivationDate() != null) {
+            course.setInactivationDate(LocalDateTime.now());
+        }
+
+        courseRepository.save(course);
+
+        return convertToDTO(course);
+
     }
 }

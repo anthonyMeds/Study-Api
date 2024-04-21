@@ -38,6 +38,9 @@ Study API provides the following endpoints:
 - **Enrollment Management**: Enroll users in courses, view enrollments.
 
   - check in swagger : http://localhost:8080/swagger-ui/index.html#/user-controller/createUser
+ 
+    ![image](https://github.com/anthonyMeds/Study-Api/assets/124306076/2e114142-ff75-4a62-b72a-d680e153f015)
+
 
 
 ## Exception Handlers and Request Data Validation

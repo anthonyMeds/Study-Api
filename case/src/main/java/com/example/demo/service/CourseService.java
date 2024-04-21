@@ -81,7 +81,7 @@ public class CourseService {
 
         course.setStatus(courseStatus);
 
-        if (courseStatus.equals(CourseStatus.INACTIVE) && course.getInactivationDate() != null) {
+        if (courseStatus.equals(CourseStatus.INACTIVE) && course.getInactivationDate() == null) {
             course.setInactivationDate(LocalDateTime.now());
         }
 

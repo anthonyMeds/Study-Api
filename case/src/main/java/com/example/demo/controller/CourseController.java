@@ -22,6 +22,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(value = "/course")
 public class CourseController {
@@ -76,7 +78,7 @@ public class CourseController {
 
     @Operation(summary = "Update course status",
             description = "To activate or inactivate a course, inform : course code and desired status. ")
-    @PutMapping("/disableCourse")
+    @PutMapping("/updateCourseStatus")
     public ResponseEntity<ResponseCourseDto> updateCourseStatus
             (
                     @Parameter(description = "course code", example = "java-boot")
@@ -90,6 +92,15 @@ public class CourseController {
 
         return new ResponseEntity<>(course, HttpStatus.OK);
 
+    }
+
+    @Operation(summary = "Get all courses",
+            description = "Internal api to check all courses.")
+    @GetMapping("/getAll")
+    public ResponseEntity<List<Course>> getAllCourses() throws Exception {
+        List<Course> courses = courseService.getAllCourses();
+
+        return new ResponseEntity<>(courses, HttpStatus.OK);
     }
 
 

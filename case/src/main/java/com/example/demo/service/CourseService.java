@@ -15,6 +15,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -90,4 +91,16 @@ public class CourseService {
         return convertToDTO(course);
 
     }
+
+
+    public List<Course> getAllCourses() throws Exception {
+        List<Course> courseList =  courseRepository.findAll();
+
+        if (courseList.isEmpty()) {
+            throw new Exception("Course not found");
+        }
+
+        return courseList;
+    }
+
 }

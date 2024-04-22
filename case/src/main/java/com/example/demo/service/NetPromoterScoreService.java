@@ -65,7 +65,7 @@ public class NetPromoterScoreService {
         return npsClassificationMap;
     }
 
-    private void validateCourseForNpsCalculation(Course course) throws Exception {
+    public void validateCourseForNpsCalculation(Course course) throws Exception {
 
         if (enrollmentRepository.countByCourse(course) < 4) {
             throw new Exception("Course has less than four enrollments.");
@@ -77,21 +77,21 @@ public class NetPromoterScoreService {
         return Optional.ofNullable(ratings);
     }
 
-    private int countPromoters(List<CourseRating> ratings) {
+    public int countPromoters(List<CourseRating> ratings) {
         return (int) ratings.stream()
                 .filter(Objects::nonNull)
                 .filter(rating -> rating.getRating() >= 9)
                 .count();
     }
 
-    private int countDetractors(List<CourseRating> ratings) {
+    public int countDetractors(List<CourseRating> ratings) {
         return (int) ratings.stream()
                 .filter(Objects::nonNull)
                 .filter(rating -> rating.getRating() < 6)
                 .count();
     }
 
-    private float calculateNps(int promoters, int detractors, int totalRespondents) throws Exception {
+    public float calculateNps(int promoters, int detractors, int totalRespondents) throws Exception {
 
         if (totalRespondents == 0) {
             throw new Exception("The course has no rating yet.");

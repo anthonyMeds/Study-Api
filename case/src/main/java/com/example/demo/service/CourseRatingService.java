@@ -1,13 +1,11 @@
 package com.example.demo.service;
 
 import com.example.demo.domain.courseRating.CourseRating;
-import com.example.demo.domain.courseRating.CourseRatingDto;
-import com.example.demo.domain.courseRating.ResponseCourseRatingDto;
+import com.example.demo.dto.CourseRatingDto;
+import com.example.demo.dto.ResponseCourseRatingDto;
 import com.example.demo.domain.courses.Course;
 import com.example.demo.domain.users.User;
 import com.example.demo.repository.CourseRatingRepository;
-import com.example.demo.repository.CourseRepository;
-import com.example.demo.repository.EnrollmentRepository;
 import com.example.demo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,13 +17,8 @@ import java.util.Optional;
 public class CourseRatingService {
 
     @Autowired
-    private EnrollmentRepository enrollmentRepository;
-
-    @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    private CourseRepository courseRepository;
 
     @Autowired
     private CourseRatingRepository courseRatingRepository;

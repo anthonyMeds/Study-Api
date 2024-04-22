@@ -4,8 +4,6 @@ import com.example.demo.domain.courseRating.CourseRating;
 import com.example.demo.domain.courses.Course;
 import com.example.demo.domain.users.User;
 import com.example.demo.repository.CourseRatingRepository;
-import com.example.demo.repository.CourseRepository;
-import com.example.demo.repository.EnrollmentRepository;
 import com.example.demo.repository.UserRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -27,14 +25,10 @@ import static org.mockito.Mockito.when;
 public class CourseRatingServiceTest {
 
 
-    @Mock
-    private EnrollmentRepository enrollmentRepository;
 
     @Mock
     private UserRepository userRepository;
 
-    @Mock
-    private CourseRepository courseRepository;
 
     @Mock
     private CourseRatingRepository courseRatingRepository;

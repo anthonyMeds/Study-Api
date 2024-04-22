@@ -2,6 +2,7 @@ package com.example.demo.domain.courseRating;
 
 import com.example.demo.domain.courses.Course;
 import com.example.demo.domain.users.User;
+import com.example.demo.dto.CourseRatingDto;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

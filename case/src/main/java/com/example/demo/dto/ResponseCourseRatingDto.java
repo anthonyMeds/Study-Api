@@ -1,4 +1,4 @@
-package com.example.demo.domain.courseRating;
+package com.example.demo.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 

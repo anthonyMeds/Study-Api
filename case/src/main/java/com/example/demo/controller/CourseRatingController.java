@@ -1,9 +1,8 @@
 package com.example.demo.controller;
 
 import com.example.demo.domain.courseRating.CourseRating;
-import com.example.demo.domain.courseRating.CourseRatingDto;
-import com.example.demo.domain.courseRating.ResponseCourseRatingDto;
-import com.example.demo.domain.courses.Course;
+import com.example.demo.dto.CourseRatingDto;
+import com.example.demo.dto.ResponseCourseRatingDto;
 import com.example.demo.service.CourseRatingService;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;

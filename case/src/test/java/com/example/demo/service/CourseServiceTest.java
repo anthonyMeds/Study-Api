@@ -219,6 +219,34 @@ public class CourseServiceTest {
         verify(courseRepository, times(1)).save(course);
     }
 
+    @Test
+    @DisplayName("Test getActiveCourseById method - Course found")
+    void testGetActiveCourseById_CourseFound() throws Exception {
+
+        Long courseId = 1L;
+        Course expectedCourse = new Course();
+        when(courseRepository.findByIdAndStatus(courseId, CourseStatus.ACTIVE))
+                .thenReturn(java.util.Optional.of(expectedCourse));
+
+        Course actualCourse = courseService.getActiveCourseById(courseId);
+
+
+        assertEquals(expectedCourse, actualCourse);
+    }
+
+    @Test
+    @DisplayName("Test getActiveCourseById method - Course not found")
+    void testGetActiveCourseById_CourseNotFound() {
+
+        Long courseId = 1L;
+        when(courseRepository.findByIdAndStatus(courseId, CourseStatus.ACTIVE))
+                .thenReturn(java.util.Optional.empty());
+
+        Exception exception = assertThrows(Exception.class, () ->
+                courseService.getActiveCourseById(courseId)
+        );
+        assertEquals("Active course not found with ID: " + courseId, exception.getMessage());
+    }
 
 
 }

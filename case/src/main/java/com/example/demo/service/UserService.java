@@ -51,4 +51,10 @@ public class UserService {
             throw new RuntimeException(fieldName + " already exists.");
         });
     }
+
+    public User getUserById(Long userId) throws Exception {
+        return userRepository.findById(userId)
+                .orElseThrow(() -> new Exception("User not found with ID: " + userId));
+    }
+
 }

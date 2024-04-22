@@ -119,5 +119,33 @@ public class UserServiceTest {
         assertEquals(serviceException.getMessage(), "User not found.");
     }
 
+    @Test
+    @DisplayName("Test getUserById method - User found")
+    void testGetUserById_UserFound() throws Exception {
+
+        Long userId = 1L;
+        User expectedUser = new User();
+        when(userRepository.findById(userId)).thenReturn(java.util.Optional.of(expectedUser));
+
+        User actualUser = userService.getUserById(userId);
+
+        assertEquals(expectedUser, actualUser);
+    }
+
+    @Test
+    @DisplayName("Test getUserById method - User not found")
+    void testGetUserById_UserNotFound() {
+
+        Long userId = 1L;
+        when(userRepository.findById(userId)).thenReturn(java.util.Optional.empty());
+
+
+        Exception exception = assertThrows(Exception.class, () ->
+                userService.getUserById(userId)
+        );
+        assertEquals("User not found with ID: " + userId, exception.getMessage());
+    }
+
+
 
 }

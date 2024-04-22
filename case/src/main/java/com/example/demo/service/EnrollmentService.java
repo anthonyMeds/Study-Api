@@ -75,4 +75,11 @@ public class EnrollmentService {
 
         return enrollmentList;
     }
+
+    public void ensureUserIsEnrolled(User user, Course course) throws Exception {
+        if (!enrollmentRepository.existsByUserAndCourse(user, course)) {
+            throw new Exception("User is not enrolled in this course.");
+        }
+    }
+
 }

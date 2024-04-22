@@ -118,4 +118,32 @@ public class EnrollmentServiceTest {
         verify(enrollmentRepository, times(1)).save(any(Enrollment.class));
     }
 
+    @Test
+    @DisplayName("Test ensureUserIsEnrolled method - User is enrolled")
+    void testEnsureUserIsEnrolled_UserEnrolled() throws Exception {
+
+        User user = new User();
+        Course course = new Course();
+        when(enrollmentRepository.existsByUserAndCourse(user, course))
+                .thenReturn(true);
+
+        enrollmentService.ensureUserIsEnrolled(user, course);
+        // No exception thrown indicates success
+    }
+
+    @Test
+    @DisplayName("Test ensureUserIsEnrolled method - User is not enrolled")
+    void testEnsureUserIsEnrolled_UserNotEnrolled() {
+
+        User user = new User();
+        Course course = new Course();
+        when(enrollmentRepository.existsByUserAndCourse(user, course))
+                .thenReturn(false);
+
+        Exception exception = assertThrows(Exception.class, () ->
+                enrollmentService.ensureUserIsEnrolled(user, course)
+        );
+        assertEquals("User is not enrolled in this course.", exception.getMessage());
+    }
+
 }

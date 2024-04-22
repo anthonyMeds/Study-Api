@@ -16,6 +16,6 @@ public record ResponseEnrollmentDto
                 Long courseId,
 
                 @Schema(description = "Enrollment Date", type = "string", example = "2024-04-20T22:05:01")
-                LocalDateTime enrollment_date
+                LocalDateTime enrollmentDate
         ) {
 }

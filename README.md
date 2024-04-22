@@ -39,7 +39,7 @@ Study API provides the following endpoints:
 
   - check in swagger : http://localhost:8080/swagger-ui/index.html#/user-controller/createUser
  
-    ![image](https://github.com/anthonyMeds/Study-Api/assets/124306076/2e114142-ff75-4a62-b72a-d680e153f015)
+    ![image](https://github.com/anthonyMeds/Study-Api/assets/124306076/165e5087-7d59-4868-a355-7554ad0375b5)
 
 
 

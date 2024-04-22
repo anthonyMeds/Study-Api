@@ -30,7 +30,7 @@ public class NetPromoterScoreController {
                     - course_id
                     """)
     @PostMapping("/create")
-    public ResponseEntity<Map<Float, String>> createCourseRating
+    public ResponseEntity<Map<Float, String>> createNpsScore
             (
                     @Valid
                     @RequestBody

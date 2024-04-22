@@ -41,6 +41,11 @@ public class NetPromoterScoreService {
 
         validateCourseForNpsCalculation(course);
 
+        Optional<NetPromoterScore> existingNps = netPromoterScoreRepository.findByCourseId(courseId);
+        if (existingNps.isPresent()) {
+            throw new Exception("NPS score already exists for course: " + courseId);
+        }
+
         List<CourseRating> ratings = getRatingsForCourse(courseId)
                 .orElseThrow(() -> new Exception("Failed to get ratings for course: " + courseId));
 

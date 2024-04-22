@@ -36,6 +36,9 @@ Study API provides the following endpoints:
 - **User Management**: Create, get an user, get all users.
 - **Course Management**: Create, update.
 - **Enrollment Management**: Enroll users in courses, view enrollments.
+- **Course Rating Management**: Allow users to rate courses and provide feedback.
+- **Net Promoter Score (NPS) Generation**: Generate NPS for existing courses based on course ratings.
+
 
   - check in swagger : http://localhost:8080/swagger-ui/index.html#/user-controller/createUser
  

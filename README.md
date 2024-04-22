@@ -1,6 +1,6 @@
 ## Study API - 
 
-Welcome to the Study API! This project aims to provide a platform for managing users, courses, and enrollments.
+Welcome to the Study API! This project aims to provide a platform for managing users, courses, ratings, net promoter score and enrollments.
 
 ### Technologies Used
 
